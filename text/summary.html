@@ -1,0 +1,56 @@
+<script type="text/javascript">
+    RED.nodes.registerType('maya-text-summary', {
+      category: 'puppeteerpage',
+      color: '#1a4034',
+      defaults: {
+        name: { value: "" },
+        text:  {value:"", validate: RED.validators.typedInput("payloadTypeText")},
+        payloadTypeText: {value:"msg"},
+
+      },
+      inputs:1,
+      outputs:1,
+      icon: "fa-file-code-o.png",
+      label: function() {
+          return this.name || "summary";
+      },
+      paletteLabel: "summary",
+      oneditprepare: function() {
+          //selector logic
+            if (this.payloadTypeText === null) {
+                if (this.selector === "") {
+                    this.payloadTypeText = "date";
+                } else {
+                    this.payloadTypeText = "str";
+                }
+            } else if (this.payloadTypeText === 'string' || this.payloadTypeText === 'none') {
+                this.payloadTypeText = "str";
+            }
+            $("#node-input-payloadTypeText").val(this.payloadTypeText);
+            $("#node-input-selector").typedInput({
+                default: 'str',
+                typeField: $("#node-input-payloadTypeText"),
+                types:['flow','global','msg','str']
+            });
+
+            $("#node-input-selector").typedInput('type',this.payloadTypeText);
+      }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="puppeteer-page-clear">
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-input-name" style="width:70%;" placeholder="Name" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-text"> text</label>
+    <input type="text" id="node-input-text"></input>
+    <input type="hidden" id="node-input-payloadTypeText">
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="maya-text-summary">
+  <p><code>summary</code> node from maya can be used to summarize a given text input to extract major content from it </p>
+  <p>The <code>text</code> information can be provided as a string in the node configuration or be passed dynamically to the node to choose which <code>input</code> type element is cleared.</p>
+</script>

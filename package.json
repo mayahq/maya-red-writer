@@ -1,0 +1,32 @@
+{
+  "name": "maya-red-writer",
+  "version": "1.0.0",
+  "description": "Maya Writer modules has funtional nodes to assist in writers, readers and researchers to quickly gain insights on text data, like assisted summarizing, spellchecks and grammar support. Currently only English language is supported.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayahq/maya-red-writer.git"
+  },
+  "keywords": [
+    "writer",
+    "assitant",
+    "summarizer",
+    "grammar",
+    "spellcheck"
+  ],
+  "author": "Shubham Mishra (https://github.com/shubham-root)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mayahq/maya-red-writer/issues"
+  },
+  "homepage": "https://github.com/mayahq/maya-red-writer#readme",
+  "dependencies": {
+    "nodejs-text-summarizer": "^2.0.3"
+  },
+  "nodes":{
+    "maya-text-summary":"text/summary.js"
+  }
+}
