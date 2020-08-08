@@ -1,33 +1,34 @@
 
 module.exports = function (RED) {
 	const summary = require("nodejs-text-summarizer");
+	var SummaryTool = require('node-summary');
 	function WriterSummary(config) {
 		RED.nodes.createNode(this, config);
-		this.text = config.text;
+		this.text = config.text.toString();
 		this.payloadTypeText = config.payloadTypeText;
 		var node = this;
 
 		const configuration = {
 			n: 3,
 			lang: 'EN',
-			raw: true
+			raw: false
 		}
 		// Retrieve the config node
 		this.on("input", function (msg) {
 			node.status({
 				fill: "yellow",
 				shape: "dot",
-				text: "clicking: " + this.selector.toString().substring(0, 10) + "..."
+				text: "summarizing.."
 			});
 
 			if (this.payloadTypeSelector === "str") {
 				try {
-					msg.summary = summary.summarize(this.text, configuration);
+					msg.summary = summary(this.text, configuration);
 					node.send(msg);
 				  node.status({
 						fill: "green",
 						shape: "dot",
-						text: "ready"
+						text: "done"
 					});
 				} catch (err) {
 					node.error(err);
@@ -53,12 +54,12 @@ module.exports = function (RED) {
 					}
 				);
 				try {
-					msg.summary = summary.summarize(text, configuration);
+					msg.summary = summary(text, configuration);
 					node.send(msg);
 				  node.status({
 						fill: "green",
 						shape: "dot",
-						text: "ready"
+						text: "done"
 					});
 				} catch (err) {
 					node.error(err);

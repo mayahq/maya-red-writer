@@ -23,6 +23,8 @@ THE SOFTWARE.
 var Tokenizer = require('./tokenizer'),
     util = require('util');
 
+const DEBUG = false;
+
 var SentenceTokenizer = function() {
     Tokenizer.call(this);
 };
@@ -30,10 +32,18 @@ util.inherits(SentenceTokenizer, Tokenizer);
 
 SentenceTokenizer.prototype.tokenize = function(text) {
     // break string up in to sentences based on punctation and quotation marks
-    var tokens = text.match(/([\"\'\‘\“\'\"\[\(\{\⟨][^\.\?\!]+[\.\?\!][\"\'\’\”\'\"\]\)\}\⟩]|[^\.\?\!]+[\.\?\!])\s?/g);
+    var tokens = text.match(/(?<=\s+|^)[\"\'\‘\“\'\"\[\(\{\⟨](.*?[.?!])(\s[.?!])*[\"\'\’\”\'\"\]\)\}\⟩](?=\s+|$)|(?<=\s+|^)\S(.*?[.?!])(\s[.?!])*(?=\s+|$)/g);
+
+    DEBUG && console.log("SentenceTokenizer.tokenize: " + tokens);
+
+    if (!tokens) {
+        return [text];
+    }
 
     // remove unecessary white space
     tokens = tokens.map(Function.prototype.call, String.prototype.trim);
+
+    DEBUG && console.log("SentenceTokenizer.tokenize: tokens after removing whitespace " + tokens);
 
     return this.trim(tokens);
 };

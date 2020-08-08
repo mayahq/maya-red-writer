@@ -24,11 +24,12 @@
   },
   "homepage": "https://github.com/mayahq/maya-red-writer#readme",
   "dependencies": {
-    "nodejs-text-summarizer": "^2.0.3"
+    "node-summary": "^1.2.0",
+    "nodejs-text-summarizer": "https://github.com/mayahq/nodejs-text-summarizer"
   },
-  "node-red":{
-    "nodes":{
-      "maya-text-summary":"text/summary.js"
+  "node-red": {
+    "nodes": {
+      "maya-text-summary": "text/summary.js"
     }
   }
 }
