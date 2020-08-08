@@ -1,7 +1,6 @@
 
 module.exports = function (RED) {
 	const summary = require("nodejs-text-summarizer");
-	var SummaryTool = require('node-summary');
 	function WriterSummary(config) {
 		RED.nodes.createNode(this, config);
 		this.text = config.text.toString();
@@ -22,10 +21,12 @@ module.exports = function (RED) {
 			});
 
 			if (this.payloadTypeSelector === "str") {
+				var sentenceCount = this.text.match(/[\w|\)][.?!](\s|$)/g).length
+				configuration.n = Math.round(sentenceCount*0.3);
 				try {
 					msg.summary = summary(this.text, configuration);
 					node.send(msg);
-				  node.status({
+					node.status({
 						fill: "green",
 						shape: "dot",
 						text: "done"
@@ -54,9 +55,11 @@ module.exports = function (RED) {
 					}
 				);
 				try {
+					var sentenceCount = text.match(/[\w|\)][.?!](\s|$)/g).length
+					configuration.n = Math.round(sentenceCount*0.3);
 					msg.summary = summary(text, configuration);
 					node.send(msg);
-				  node.status({
+					node.status({
 						fill: "green",
 						shape: "dot",
 						text: "done"
