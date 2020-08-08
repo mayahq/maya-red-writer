@@ -21,10 +21,11 @@ module.exports = function (RED) {
 			});
 
 			if (this.payloadTypeSelector === "str") {
-				var sentenceCount = this.text.match(/[\w|\)][.?!](\s|$)/g).length
-				configuration.n = Math.round(sentenceCount * this.summarizationRatio);
+				var sentenceArray = this.text.match(/[\w|\)][.?!](\s|$)/g);
+				var sentenceCount = sentenceArray!==null? sentenceArray.length: 1;
+				configuration.n = Math.ceil(sentenceCount * this.summarizationRatio);
 				if (this.summarizationRatio === 0 || isNaN(this.summarizationRatio)) {
-					configuration.n = Math.round(sentenceCount * 0.3);
+					configuration.n = Math.ceil(sentenceCount * 0.3);
 				}
 				try {
 					console.log(configuration)
@@ -58,11 +59,13 @@ module.exports = function (RED) {
 						}
 					}
 				);
+				
 				try {
-					var sentenceCount = text.match(/[\w|\)][.?!](\s|$)/g).length
-					configuration.n = Math.round(sentenceCount * this.summarizationRatio);
+					var sentenceArray = text.match(/[\w|\)][.?!](\s|$)/g);
+					var sentenceCount = sentenceArray!==null? sentenceArray.length: 1;
+					configuration.n = Math.ceil(sentenceCount * this.summarizationRatio);
 					if (this.summarizationRatio === 0 || isNaN(this.summarizationRatio)) {
-						configuration.n = Math.round(sentenceCount * 0.3);
+						configuration.n = Math.ceil(sentenceCount * 0.3);
 					}
 					console.log(configuration)
 					msg.summary = summary(text, configuration);
