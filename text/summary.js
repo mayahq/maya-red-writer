@@ -5,10 +5,10 @@ module.exports = function (RED) {
 		RED.nodes.createNode(this, config);
 		this.text = config.text.toString();
 		this.payloadTypeText = config.payloadTypeText;
+		this.summarizationRatio = config.summarizationRatio;
 		var node = this;
-
 		const configuration = {
-			n: 3,
+			n: 0,
 			lang: 'EN',
 			raw: false
 		}
@@ -22,8 +22,12 @@ module.exports = function (RED) {
 
 			if (this.payloadTypeSelector === "str") {
 				var sentenceCount = this.text.match(/[\w|\)][.?!](\s|$)/g).length
-				configuration.n = Math.round(sentenceCount*0.3);
+				configuration.n = Math.round(sentenceCount * this.summarizationRatio);
+				if (this.summarizationRatio === 0 || isNaN(this.summarizationRatio)) {
+					configuration.n = Math.round(sentenceCount * 0.3);
+				}
 				try {
+					console.log(configuration)
 					msg.summary = summary(this.text, configuration);
 					node.send(msg);
 					node.status({
@@ -55,8 +59,12 @@ module.exports = function (RED) {
 					}
 				);
 				try {
-					var sentenceCount = text.match(/[\w|\)][.?!](\s|$)/g).length
-					configuration.n = Math.round(sentenceCount*0.3);
+					var sentenceCount = this.text.match(/[\w|\)][.?!](\s|$)/g).length
+					configuration.n = Math.round(sentenceCount * this.summarizationRatio);
+					if (this.summarizationRatio === 0 || isNaN(this.summarizationRatio)) {
+						configuration.n = Math.round(sentenceCount * 0.3);
+					}
+					console.log(configuration)
 					msg.summary = summary(text, configuration);
 					node.send(msg);
 					node.status({

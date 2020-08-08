@@ -6,7 +6,7 @@
         name: { value: "" },
         text:  {value:"", validate: RED.validators.typedInput("payloadTypeText")},
         payloadTypeText: {value:"msg"},
-
+        summarizationRatio: {value: 0, validate:RED.validators.number()},
       },
       inputs:1,
       outputs:1,
@@ -44,6 +44,10 @@
       <input type="text" id="node-input-name" style="width:70%;" placeholder="Name" />
   </div>
   <div class="form-row">
+      <label for="node-input-summarizationRatio"> Summary Ratio</label>
+      <input type="number" id="node-input-summarizationRatio" style="width:70%;" placeholder="value between 0 and 1 (default 0.3)" />
+  </div>
+  <div class="form-row">
     <label for="node-input-text"> text</label>
     <input type="text" id="node-input-text"></input>
     <input type="hidden" id="node-input-payloadTypeText">
@@ -52,5 +56,7 @@
 
 <script type="text/x-red" data-help-name="maya-text-summary">
   <p><code>summary</code> node from maya can be used to summarize a given text input to extract major content from it </p>
-  <p>The <code>text</code> information can be provided as a string in the node configuration or be passed dynamically to the node to choose which <code>input</code> type element is cleared.</p>
+  <p><code>summarizationRatio</code> field is configure how much summarization as a percentage of total number of sentences in the input text is needed. By default if the field is left empty module uses 0.3 or 30%%</p>
+  <p>The <code>text</code> information can be provided as a string in the node configuration or be passed dynamically</p>
+  <p>The output is sent to <code>msg.summary</code>.
 </script>
