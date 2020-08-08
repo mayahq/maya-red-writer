@@ -59,7 +59,7 @@ module.exports = function (RED) {
 					}
 				);
 				try {
-					var sentenceCount = this.text.match(/[\w|\)][.?!](\s|$)/g).length
+					var sentenceCount = text.match(/[\w|\)][.?!](\s|$)/g).length
 					configuration.n = Math.round(sentenceCount * this.summarizationRatio);
 					if (this.summarizationRatio === 0 || isNaN(this.summarizationRatio)) {
 						configuration.n = Math.round(sentenceCount * 0.3);
