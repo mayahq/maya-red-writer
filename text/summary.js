@@ -22,13 +22,13 @@ module.exports = function (RED) {
 
 			if (this.payloadTypeSelector === "str") {
 				var sentenceArray = this.text.match(/[\w|\)][.?!](\s|$)/g);
-					var sentenceCount = sentenceArray!==null? sentenceArray.length: 1;
-					console.log(sentenceCount);
-					if (this.summarizationRatio <= 0 || isNaN(this.summarizationRatio)) {
-						configuration.n = Math.ceil(sentenceCount * 0.3);
-					} else{
-						configuration.n = Math.ceil(sentenceCount * this.summarizationRatio);
-					}
+				var sentenceCount = sentenceArray !== null ? sentenceArray.length : 1;
+				console.log(sentenceCount);
+				if (this.summarizationRatio <= 0 || isNaN(this.summarizationRatio)) {
+					configuration.n = Math.ceil(sentenceCount * 0.3);
+				} else {
+					configuration.n = Math.ceil(sentenceCount * this.summarizationRatio);
+				}
 				try {
 					console.log(configuration)
 					msg.summary = summary(this.text, configuration);
@@ -61,14 +61,14 @@ module.exports = function (RED) {
 						}
 					}
 				);
-				
+
 				try {
 					var sentenceArray = text.match(/[\w|\)][.?!](\s|$)/g);
-					var sentenceCount = sentenceArray!==null? sentenceArray.length: 1;
+					var sentenceCount = sentenceArray !== null ? sentenceArray.length : 1;
 					console.log(sentenceCount);
 					if (this.summarizationRatio <= 0 || isNaN(this.summarizationRatio)) {
 						configuration.n = Math.ceil(sentenceCount * 0.3);
-					} else{
+					} else {
 						configuration.n = Math.ceil(sentenceCount * this.summarizationRatio);
 					}
 					console.log(configuration)
