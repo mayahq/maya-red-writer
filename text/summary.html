@@ -1,6 +1,6 @@
 <script type="text/javascript">
     RED.nodes.registerType('maya-text-summary', {
-      category: 'puppeteerpage',
+      category: 'maya-writer',
       color: '#1a4034',
       defaults: {
         name: { value: "" },
@@ -18,7 +18,7 @@
       oneditprepare: function() {
           //selector logic
             if (this.payloadTypeText === null) {
-                if (this.selector === "") {
+                if (this.text === "") {
                     this.payloadTypeText = "date";
                 } else {
                     this.payloadTypeText = "str";
@@ -27,18 +27,18 @@
                 this.payloadTypeText = "str";
             }
             $("#node-input-payloadTypeText").val(this.payloadTypeText);
-            $("#node-input-selector").typedInput({
+            $("#node-input-text").typedInput({
                 default: 'str',
                 typeField: $("#node-input-payloadTypeText"),
                 types:['flow','global','msg','str']
             });
 
-            $("#node-input-selector").typedInput('type',this.payloadTypeText);
+            $("#node-input-text").typedInput('type',this.payloadTypeText);
       }
     });
 </script>
 
-<script type="text/x-red" data-template-name="puppeteer-page-clear">
+<script type="text/x-red" data-template-name="maya-text-summary">
   <div class="form-row">
       <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
       <input type="text" id="node-input-name" style="width:70%;" placeholder="Name" />
