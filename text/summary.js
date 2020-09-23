@@ -1,6 +1,6 @@
 
 module.exports = function (RED) {
-	const summary = require("nodejs-text-summarizer");
+	const summary = require("@mayahq/nodejs-text-summarizer");
 	function WriterSummary(config) {
 		RED.nodes.createNode(this, config);
 		this.text = config.text.toString();
