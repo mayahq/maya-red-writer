@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/mayahq/maya-red-writer#readme",
   "dependencies": {
-    "nodejs-text-summarizer": "https://github.com/mayahq/nodejs-text-summarizer"
+    "@mayahq/nodejs-text-summarizer": "^2.0.3"
   },
   "node-red": {
     "nodes": {
